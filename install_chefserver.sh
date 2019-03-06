@@ -7,7 +7,7 @@ wget -nv -P ~/downloads https://packages.chef.io/files/stable/chefdk/3.7.23/ubun
 dpkg -i ~/downloads/chef-server-core_12.19.26-1_amd64.deb
 dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 chef-server-ctl reconfigure >> ~/chef_server_reconfigure1.log
-chef-server-ctl cleans >> ~/chef_cleanse.log
+chef-server-ctl cleanse >> ~/chef_cleanse.log
 chef-server-ctl reconfigure >> ~/chef_server_reconfigure2.log
 
 until (curl -D - http://localhost:8000/_status) | grep "200 OK"; do sleep 15s; done
