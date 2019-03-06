@@ -17,18 +17,18 @@ dpkg -i ~/downloads/chef-server-core_12.19.26-1_amd64.deb
 dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 
 # Reconfigure Chef server
-chef-server-ctl reconfigure >> ~/chef_server_reconfigure1.log
+chef-server-ctl reconfigure >> ~/chef_server_reconfigure_1.log
 
 # Sleep for 5 minutes to let things quiet down
 sleep 300s
 
 # Everything from here on fails so need to log in and run from here on manually
-chef-server-ctl cleanse
-chef-server-ctl reconfigure
+#chef-server-ctl cleanse  >> ~/chef_server_cleanse.log
+#chef-server-ctl reconfigure >> ~/chef_server_reconfigure_2.log
 
 # Wait for the Chef server to come up after reconfiguring
-until (curl -D - http://localhost:8000/_status) | grep "200 OK"; do echo "Sleep for 15 seconds until 200 OK appears when running curl http://localhost:8000/_status" ; sleep 15s; done
-while (curl http://localhost:8000/_status) | grep "fail"; do echo "Sleep for 15 seconds while fail keeps appearing when running curl http://localhost:8000/_status" ; sleep 15s; done
+until (curl -D - http://localhost:8000/_status) | grep "200 OK"; do echo "Sleep for 15 seconds until 200 OK appears when running curl http://localhost:8000/_status" >> ~/until.log ; sleep 15s; done
+while (curl http://localhost:8000/_status) | grep "fail"; do echo "Sleep for 15 seconds while fail keeps appearing when running curl http://localhost:8000/_status" >> ~/while.log ; sleep 15s; done
 
 # Create a Chef user
 chef-server-ctl user-create gmortel Gerard Mortel gmortel@us.ibm.com 'abc123' --filename ~/chef-repo/.chef/gmortel.pem
