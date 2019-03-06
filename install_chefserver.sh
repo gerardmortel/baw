@@ -19,10 +19,11 @@ dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 # Reconfigure Chef server
 chef-server-ctl reconfigure >> ~/chef_server_reconfigure_1.log
 
-# Sleep for 5 minutes to let things quiet down
+# Sleep for 5 minutes to let things quiet down as the server is still just coming up.
 sleep 300s
 
-# Everything from here on fails so need to log in and run from here on manually
+# If waiting 5 minutes is not sufficient, everything from here on fails so need to log in and run from here on manually.
+# If it does fail on the first "chef-server-ctl reconfigure", uncomment the following 2 lines then run from here forward.
 #chef-server-ctl cleanse  >> ~/chef_server_cleanse.log
 #chef-server-ctl reconfigure >> ~/chef_server_reconfigure_2.log
 
