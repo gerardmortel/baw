@@ -16,30 +16,6 @@ wget -nv -P ~/downloads https://packages.chef.io/files/stable/chefdk/3.7.23/ubun
 dpkg -i ~/downloads/chef-server-core_12.19.26-1_amd64.deb
 dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 
-# Prepare the client.rb file to boostrap
-cat << EOF >> /etc/chef/client.rb
-chef_server_url        'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'  
-validation_key         '/etc/chef/gmortel.pem'
-validation_client_name 'gmortel' 
-ssl_verify_mode        :verify_none
-EOF
-
-# Prepare the config.rb to upload Chef recipes
-cat << EOF >> ~/chef-repo/.chef/config.rb
-current_dir = File.dirname(__FILE__)
-log_level                :info
-log_location             STDOUT
-node_name                'gmortel'
-client_key               "#{current_dir}/gmortel.pem"
-validation_client_name   'ibmodc'
-validation_key           "#{current_dir}/ibmodc.pem"
-chef_server_url          'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'
-cache_type               'BasicFile'
-cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
-ssl_verify_mode          :verify_none
-cookbook_path            ["#{current_dir}/../cookbooks"]
-EOF
-
 # Download Chef recipes
 mkdir ~/git
 cd ~/git
@@ -80,8 +56,32 @@ chef-server-ctl reconfigure >> ~/chef_server_reconfigure3.log
 # Reconfigure the Chef manager and automatically accept the license
 chef-manage-ctl reconfigure --accept-license >> ~/chef_manage_reconfigure.log
 
+# Prepare the client.rb file to boostrap
+cat << EOF >> /etc/chef/client.rb
+chef_server_url        'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'  
+validation_key         '/etc/chef/gmortel.pem'
+validation_client_name 'gmortel' 
+ssl_verify_mode        :verify_none
+EOF
+
 # Bootstrap server
 chef-client
+
+# Prepare the config.rb to upload Chef recipes
+cat << EOF >> ~/chef-repo/.chef/config.rb
+current_dir = File.dirname(__FILE__)
+log_level                :info
+log_location             STDOUT
+node_name                'gmortel'
+client_key               "#{current_dir}/gmortel.pem"
+validation_client_name   'ibmodc'
+validation_key           "#{current_dir}/ibmodc.pem"
+chef_server_url          'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'
+cache_type               'BasicFile'
+cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
+ssl_verify_mode          :verify_none
+cookbook_path            ["#{current_dir}/../cookbooks"]
+EOF
 
 # Upload chef recipes
 cd ~/chef-repo
