@@ -9,23 +9,27 @@ mkdir -p ~/chef-repo/.chef
 mkdir -p ~/chef-repo/cookbooks
 
 # Download Chef server and Chef development kit
-wget -nv -P ~/downloads https://packages.chef.io/files/stable/chef-server/12.19.26/ubuntu/18.04/chef-server-core_12.19.26-1_amd64.deb
+wget -nv -P ~/downloads https://packages.chef.io/files/stable/chef-server/12.18.14/ubuntu/18.04/chef-server-core_12.18.14-1_amd64.deb
+#wget -nv -P ~/downloads https://packages.chef.io/files/stable/chef-server/12.19.26/ubuntu/18.04/chef-server-core_12.19.26-1_amd64.deb
 wget -nv -P ~/downloads https://packages.chef.io/files/stable/chefdk/3.7.23/ubuntu/18.04/chefdk_3.7.23-1_amd64.deb
 
 # Install Chef server and Chef development kit
-dpkg -i ~/downloads/chef-server-core_12.19.26-1_amd64.deb
+dpkg -i ~/downloads/chef-server-core_12.18.14-1_amd64.deb
+#dpkg -i ~/downloads/chef-server-core_12.19.26-1_amd64.deb
 dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
+
+# Sleep for 5 minutes to let things quiet down as the server is still just coming up.  FYI, this has not worked yet.
+sleep 300s
 
 # Reconfigure Chef server
 chef-server-ctl reconfigure >> ~/chef_server_reconfigure_1.log
 
-# Sleep for 8 minutes to let things quiet down as the server is still just coming up.  FYI, this has not worked yet.
-#sleep 480s
+#############################################################################################################################
 
 # If waiting was not sufficient, everything from here on fails so need to log in and run from here on manually.
 # If it does fail on the first "chef-server-ctl reconfigure", uncomment the following 2 lines then run from here forward.
-chef-server-ctl cleanse
-chef-server-ctl reconfigure
+#chef-server-ctl cleanse
+#chef-server-ctl reconfigure
 
 # Wait for the Chef server to come up after reconfiguring
 until (curl -D - http://localhost:8000/_status) | grep "200 OK"; do echo "Sleep for 15 seconds until 200 OK appears when running curl http://localhost:8000/_status" ; sleep 15s; done
