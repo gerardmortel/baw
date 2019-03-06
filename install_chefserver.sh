@@ -74,7 +74,7 @@ chef-server-ctl install chef-manage
 # Reconfigure the Chef server
 chef-server-ctl reconfigure >> ~/chef_server_reconfigure3.log
 
-# Reconfigure the Chef manager
+# Reconfigure the Chef manager and automatically accept the license
 chef-manage-ctl reconfigure --accept-license >> ~/chef_manage_reconfigure.log
 
 # Bootstrap server
