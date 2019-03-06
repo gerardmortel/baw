@@ -19,8 +19,8 @@ dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 # Prepare the client.rb file to boostrap
 cat << EOF >> /etc/chef/client.rb
 chef_server_url        'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'  
-validation_key         '/etc/chef/ibmodc.pem'
-validation_client_name 'ibmodc' 
+validation_key         '/etc/chef/gmortel.pem'
+validation_client_name 'gmortel' 
 ssl_verify_mode        :verify_none
 EOF
 
@@ -68,8 +68,8 @@ chef-server-ctl user-create gmortel Gerard Mortel gmortel@us.ibm.com 'abc123' --
 # Create an organization
 chef-server-ctl org-create ibmodc 'IBM On Demand Consulting' --association_user gmortel --filename ~/chef-repo/.chef/ibmodc.pem
 
-# Copy the oraganization pem file to /etc/chef/
-cp ~/chef-repo/.chef/ibmodc.pem /etc/chef/
+# Copy the user pem file to /etc/chef/
+cp ~/chef-repo/.chef/gmortel.pem /etc/chef/
 
 # Install the Chef management UI
 chef-server-ctl install chef-manage
