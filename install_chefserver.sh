@@ -68,6 +68,9 @@ chef-server-ctl user-create gmortel Gerard Mortel gmortel@us.ibm.com 'abc123' --
 # Create an organization
 chef-server-ctl org-create ibmodc 'IBM On Demand Consulting' --association_user gmortel --filename ~/chef-repo/.chef/ibmodc.pem
 
+# Copy the oraganization pem file to /etc/chef/
+cp ~/chef-repo/.chef/ibmodc.pem /etc/chef/
+
 # Install the Chef management UI
 chef-server-ctl install chef-manage
 
