@@ -18,7 +18,7 @@ dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 
 # Prepare the client.rb file to boostrap
 cat << EOF >> /etc/chef/client.rb
-chef_server_url        'https://chef.odc.ibm.cloud.com/organizations/ibmodc'  
+chef_server_url        'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'  
 validation_key         '/etc/chef/ibmodc.pem'
 validation_client_name 'ibmodc' 
 ssl_verify_mode        :verify_none
