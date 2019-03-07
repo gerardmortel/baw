@@ -22,7 +22,7 @@ dpkg -i ~/downloads/chef-server-core_12.19.26-1_amd64.deb
 dpkg -i ~/downloads/chefdk_3.7.23-1_amd64.deb
 
 # Reconfigure Chef server
-chef-server-ctl reconfigure >> ~/chef_server_reconfigure_1.log
+chef-server-ctl reconfigure || tee ~/chef_server_reconfigure_1.log
 
 #############################################################################################################################
 
