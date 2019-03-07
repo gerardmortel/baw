@@ -28,8 +28,8 @@ chef-server-ctl reconfigure || tee ~/chef_server_reconfigure_1.log
 
 # If waiting was not sufficient, everything from here on fails so need to log in and run from here on manually.
 # If it does fail on the first "chef-server-ctl reconfigure", uncomment the following 2 lines then run from here forward.
-chef-server-ctl cleanse
-chef-server-ctl reconfigure
+#chef-server-ctl cleanse
+#chef-server-ctl reconfigure
 
 # Wait for the Chef server to come up after reconfiguring
 until (curl -D - http://localhost:8000/_status) | grep "200 OK"; do echo "Sleep for 15 seconds until 200 OK appears when running curl http://localhost:8000/_status" ; sleep 15s; done
