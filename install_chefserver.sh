@@ -55,7 +55,7 @@ cp ~/chef-repo/.chef/gmortel.pem /etc/chef/
 
 # Prepare the client.rb file to bootstrap server
 cat << EOF >> /etc/chef/client.rb
-chef_server_url        'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'  
+chef_server_url        'https://localhost/organizations/ibmodc'  
 validation_key         '/etc/chef/gmortel.pem'
 validation_client_name 'gmortel' 
 ssl_verify_mode        :verify_none
