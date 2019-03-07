@@ -73,7 +73,7 @@ node_name                'gmortel'
 client_key               "#{current_dir}/gmortel.pem"
 validation_client_name   'ibmodc'
 validation_key           "#{current_dir}/ibmodc.pem"
-chef_server_url          'https://chef2.odc.ibm.cloud.com/organizations/ibmodc'
+chef_server_url          'https://localhost/organizations/ibmodc'
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 ssl_verify_mode          :verify_none
